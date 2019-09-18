@@ -472,6 +472,7 @@ nav {
 #contact-us {
   width: 100%;
   background-color: white;
+
   #contact-us-container {
     width: 100%;
     display: flex;
@@ -479,6 +480,7 @@ nav {
     flex-direction: column;
     justify-content: center;
     background-color: #566cff;
+
     #contact-us-left {
       width: $width-mobile;
 
@@ -633,6 +635,7 @@ footer {
 }
 
 @media screen and (min-width: $min-width-desktop) {
+  // Animtation Begin ------------------------------------------
   @keyframes cloud1Animation {
     0% {
       transform: translateX(0%);
@@ -660,7 +663,7 @@ footer {
       transform: translateX(900%);
     }
   }
-
+  // Animation End ----------------------------------------------
   #nav {
     display: flex;
     position: relative;
@@ -794,6 +797,7 @@ footer {
     height: auto;
     margin-top: 100vh;
     position: relative;
+
     #tech-container {
       width: 100%;
       height: auto;
@@ -826,6 +830,7 @@ footer {
     width: 100%;
     position: relative;
     background-color: white;
+
     #services-container {
       width: 100%;
       max-width: $max-width-desktop;
@@ -897,6 +902,7 @@ footer {
     width: 100%;
     position: relative;
     background-color: white;
+
     #contact-us-container {
       width: 100%;
       display: flex;
@@ -908,6 +914,7 @@ footer {
       justify-content: center;
       background-color: white;
       max-width: $max-width-desktop;
+
       #contact-us-left {
         width: 50%;
         z-index: 11;
@@ -915,9 +922,11 @@ footer {
         padding: 0 50px;
         position: relative;
         flex-direction: column;
+
         h2 {
           color: #534daa;
         }
+
         ul {
           li {
             p {
@@ -931,6 +940,7 @@ footer {
       }
       #contact-form {
         width: auto;
+
         #contact-form-container {
           form {
             button {
