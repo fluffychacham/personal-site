@@ -1,4 +1,33 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@-webkit-keyframes minifyLabel {
+  to {
+    font-size: 10px;
+    color: #566cff;
+  }
+}
+@keyframes minifyLabel {
+  to {
+    font-size: 10px;
+    color: #566cff;
+  }
+}
+
+@-webkit-keyframes focusContactForm {
+  to {
+    -webkit-transform: scale(1.01);
+            transform: scale(1.01);
+    border-bottom: 1px solid #566cff;
+  }
+}
+
+@keyframes focusContactForm {
+  to {
+    -webkit-transform: scale(1.01);
+            transform: scale(1.01);
+    border-bottom: 1px solid #566cff;
+  }
+}
+
 @-webkit-keyframes bounce {
   from,
   20%,
@@ -28,6 +57,7 @@
             transform: translate3d(0, -4px, 0);
   }
 }
+
 @keyframes bounce {
   from,
   20%,
@@ -278,6 +308,32 @@
           animation-iteration-count: infinite;
   -webkit-animation-timing-function: ease-in-out;
           animation-timing-function: ease-in-out;
+}
+
+.bounce {
+  -webkit-animation-name: bounce;
+          animation-name: bounce;
+  -webkit-animation-duration: 1.3s;
+          animation-duration: 1.3s;
+  -webkit-transform-origin: center bottom;
+          transform-origin: center bottom;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
+.focused {
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-name: minifyLabel;
+          animation-name: minifyLabel;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+  -webkit-animation-timing-function: ease;
+          animation-timing-function: ease;
 }
 
 html {
@@ -766,6 +822,10 @@ nav #nav-container p a {
 
 #contact-us #contact-us-container #contact-form #contact-form-container form {
   margin: 20px;
+  -webkit-transition: all;
+  transition: all;
+  -webkit-transition-duration: 1s;
+          transition-duration: 1s;
 }
 
 #contact-us #contact-us-container #contact-form #contact-form-container form label {
@@ -784,6 +844,16 @@ nav #nav-container p a {
 
 #contact-us #contact-us-container #contact-form #contact-form-container form input:focus {
   outline: none;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-transform-origin: center bottom;
+          transform-origin: center bottom;
+  -webkit-animation-timing-function: ease;
+          animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-name: focusContactForm;
+          animation-name: focusContactForm;
 }
 
 #contact-us #contact-us-container #contact-form #contact-form-container form textarea {
@@ -1050,10 +1120,10 @@ footer #footer-container #copyright p {
             animation-name: bounce;
     -webkit-animation-duration: 1.3s;
             animation-duration: 1.3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
     -webkit-transform-origin: center bottom;
             transform-origin: center bottom;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease-in-out;
             animation-timing-function: ease-in-out;
   }
@@ -1291,10 +1361,10 @@ footer #footer-container #copyright p {
             animation-name: bounce;
     -webkit-animation-duration: 1.3s;
             animation-duration: 1.3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
     -webkit-transform-origin: center bottom;
             transform-origin: center bottom;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease-in-out;
             animation-timing-function: ease-in-out;
   }

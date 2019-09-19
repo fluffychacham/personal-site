@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import loadable from "@loadable/component";
+import aos from "aos";
+import "../node_modules/aos/dist/aos.css";
 import "./css/style.css";
 
 const Nav = loadable(() => import("./components/nav"));
@@ -10,6 +12,15 @@ const Contact = loadable(() => import("./components/contact"));
 const Footer = loadable(() => import("./components/footer"));
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    aos.init();
+  }
+
+  componentDidUpdate() {
+    aos.refresh();
+  }
+
   state = {
     toggle: true,
     cssClass: ""

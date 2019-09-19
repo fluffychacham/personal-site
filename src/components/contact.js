@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import LabelInput from "./label-input";
+import LabelTextarea from "./label-textarea";
 
 import contactus from "../images/contactus-image.svg";
 import email_icon from "../images/email-icon.svg";
@@ -48,21 +50,19 @@ export default class contact extends Component {
           <div id="contact-form">
             <div id="contact-form-container">
               <form action="#">
-                <label htmlFor="name">Name</label>
-                <input id="name" type="text" />
-                <label htmlFor="email">Email</label>
-                <input id="email" type="email" />
-                <label htmlFor="budget">Budget</label>
-                <input id="budget" type="text" />
-                <label htmlFor="project-timeline">Project Timeline</label>
-                <input id="project-timeline" type="text" />
-                <label htmlFor="messsage">Message</label>
-                <textarea
-                  name="message"
+                <LabelInput id="name" text="Name"></LabelInput>
+                <LabelInput id="email" text="Email"></LabelInput>
+                <LabelInput id="budget" text="Budget"></LabelInput>
+                <LabelInput
+                  id="project-timeline"
+                  text="Project Timeline"
+                ></LabelInput>
+                <LabelTextarea
                   id="message"
+                  text="Message"
                   col="4"
                   rows="5"
-                ></textarea>
+                ></LabelTextarea>
                 <button type="submit">
                   <img
                     loading="lazy"

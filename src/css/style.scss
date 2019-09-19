@@ -6,6 +6,20 @@ $max-width-desktop: 1000px;
 
 // Animation Section ---------------------------------------------
 
+@keyframes minifyLabel {
+  to {
+    font-size: 10px;
+    color: #566cff;
+  }
+}
+
+@keyframes focusContactForm {
+  to {
+    transform: scale(1.01);
+    border-bottom: 1px solid #566cff;
+  }
+}
+
 @keyframes bounce {
   from,
   20%,
@@ -155,9 +169,29 @@ $max-width-desktop: 1000px;
 @mixin bounceAnimation {
   animation-name: bounce;
   animation-duration: 1.3s;
-  animation-iteration-count: infinite;
   transform-origin: center bottom;
+  animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
+}
+
+@mixin focusContactForm {
+  animation-duration: 0.3s;
+  transform-origin: center bottom;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-name: focusContactForm;
+}
+
+.bounce {
+  @include bounceAnimation;
+}
+
+.focused {
+  animation-duration: 0.3s;
+  animation-name: minifyLabel;
+  animation-fill-mode: both;
+  animation-direction: normal;
+  animation-timing-function: ease;
 }
 
 // Animation Section End -----------------------------------------
@@ -542,6 +576,8 @@ nav {
 
         form {
           margin: 20px;
+          transition: all;
+          transition-duration: 1s;
 
           label {
             display: block;
@@ -558,6 +594,7 @@ nav {
 
             &:focus {
               outline: none;
+              @include focusContactForm;
             }
           }
 
