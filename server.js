@@ -24,10 +24,10 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use(express.json());
 
 app.get("/", (req, res, next) => {
-  res.send("Hello World!");
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.post("/mail", cors(), (req, res, next) => {
+app.post("/send", cors(), (req, res, next) => {
   let emailTo = email;
   let emailFrom = req.body.emailFrom;
   let siteName = site;
@@ -37,6 +37,7 @@ app.post("/mail", cors(), (req, res, next) => {
   let message = req.body.message;
   let subject = emailSubject;
 
+  console.log("----------------------------------");
   console.log(`Email To: ${emailTo}`);
   console.log(`Email From ${emailFrom}`);
   console.log(`Site Name: ${siteName}`);
@@ -45,6 +46,7 @@ app.post("/mail", cors(), (req, res, next) => {
   console.log(`Project Timeline: ${projectTimeline}`);
   console.log(`Subject: ${subject}`);
   console.log(`Message: ${message}`);
+  console.log("----------------------------------");
 
   if (message) {
     res.json({ msg: "Successful!" });
@@ -83,6 +85,6 @@ app.post("/mail", cors(), (req, res, next) => {
   //   });
 });
 
-app.listen(port, function() {
+app.listen(process.env.PORT || port, function() {
   console.log(`CORS-enabled server listening on port ${port}`);
 });

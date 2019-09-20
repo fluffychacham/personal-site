@@ -47,7 +47,7 @@ export default class contact extends Component {
   handleSubmit = e => {
     e.preventDefault();
     node
-      .post("/mail", {
+      .post("/send", {
         name: this.state.name,
         emailFrom: this.state.email,
         budget: this.state.budget,
