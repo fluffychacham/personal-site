@@ -37,6 +37,7 @@ export default class LabelInput extends Component {
           type="text"
           onBlur={this.focusInput}
           onFocus={this.focusInput}
+          onChange={this.props.change}
         />
       </div>
     );

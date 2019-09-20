@@ -1,8 +1,29 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
+$padding: 10px;
 $width-mobile: 300px;
+$text-color: #707070;
+$primary-color: #534daa;
 $min-width-desktop: 400px;
 $max-width-desktop: 1000px;
+
+@mixin reset {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin marginCenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin buttonStyle {
+  padding: $padding - 5px 20px;
+}
+
+@mixin boxShadow {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
 
 // Animation Section ---------------------------------------------
 
@@ -26,19 +47,19 @@ $max-width-desktop: 1000px;
   53%,
   80%,
   to {
-    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   40%,
   43% {
-    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
     transform: translate3d(0, -30px, 0);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
   }
 
   70% {
-    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
     transform: translate3d(0, -15px, 0);
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
   }
 
   90% {
@@ -131,6 +152,13 @@ $max-width-desktop: 1000px;
   }
 }
 
+@keyframes makeBigger {
+  to {
+    transform: scale(1.01);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
+  }
+}
+
 .cloudOne {
   animation-duration: 20s;
   animation-name: cloud1Animation;
@@ -188,41 +216,49 @@ $max-width-desktop: 1000px;
 
 .focused {
   animation-duration: 0.3s;
-  animation-name: minifyLabel;
   animation-fill-mode: both;
   animation-direction: normal;
+  animation-name: minifyLabel;
   animation-timing-function: ease;
 }
 
+@mixin serviceAnimation {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  animation-name: makeBigger;
+  animation-timing-function: ease-in-out;
+}
+
 // Animation Section End -----------------------------------------
+
+h1,
+h2,
+h3,
+p {
+  @include reset;
+}
+
+ul,
+li,
+a {
+  @include reset;
+  list-style: none;
+  text-decoration: none;
+}
+
+.show {
+  transform: translateX(0);
+}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   width: 100%;
+  @include reset;
   overflow-x: hidden;
   font-family: Montserrat;
-}
-
-ul,
-li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-a {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-}
-
-.show {
-  transform: translateX(0);
 }
 
 nav {
@@ -285,9 +321,9 @@ nav {
           font-size: 20px;
           font-weight: 500;
           padding: 10px 20px;
+          @include boxShadow;
           border-radius: 10px;
           background-color: #ffeb3b;
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
         }
       }
     }
@@ -387,9 +423,9 @@ nav {
     }
 
     #explore-container {
-      width: 150px;
+      width: 200px;
       display: flex;
-      margin-top: 140px;
+      margin-top: 100px;
       margin-left: auto;
       margin-right: auto;
       align-items: center;
@@ -399,6 +435,11 @@ nav {
       p {
         color: white;
         font-size: 20px;
+        padding: $padding + 10px 0;
+      }
+
+      a {
+        padding: $padding 0;
       }
     }
   }
@@ -431,72 +472,77 @@ nav {
 
 #services {
   width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-
-  #services-container {
+  background-color: white;
+  h2 {
+    font-size: 15px;
     width: $width-mobile;
+    @include marginCenter;
+    color: $primary-color;
+    padding: $padding + 4 0;
+  }
+  .service-container {
+    .image-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      @include marginCenter;
+      flex-direction: column;
+      justify-content: center;
+      padding: $padding + 20 0;
+      background-color: $primary-color;
 
-    h2 {
-      font-size: 12px;
-      color: #534daa;
+      img {
+        width: $width-mobile;
+      }
     }
 
-    ul {
-      margin-top: 20px;
+    .p-container {
+      display: flex;
+      text-align: left;
+      margin-top: -20px;
+      @include boxShadow;
+      margin-bottom: 30px;
+      width: $width-mobile;
+      @include marginCenter;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      background-color: white;
 
-      li {
-        .icon-container {
-          z-index: 1;
-          width: 50px;
-          height: 50px;
-          display: flex;
-          position: relative;
-          border-radius: 5px;
-          align-items: center;
-          justify-content: center;
-          background-color: #534daa;
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      h3 {
+        width: 80%;
+        font-size: 20px;
+        text-align: left;
+        font-weight: normal;
+        padding: $padding 0;
+        color: $primary-color;
+        @include marginCenter;
+
+        .bold-text {
+          display: inline;
+          font-weight: 700;
         }
+      }
 
-        .service-container {
-          width: 277px;
-          float: right;
-          display: flex;
-          margin-top: -25px;
-          position: relative;
-          margin-bottom: 20px;
-          align-items: center;
-          padding-bottom: 10px;
-          flex-direction: column;
-          justify-content: center;
-          background-color: white;
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+      p {
+        width: 80%;
+        font-size: 13px;
+        color: $text-color;
+        @include marginCenter;
+      }
 
-          h3 {
-            font-size: 20px;
-            margin-top: 10px;
-            color: #534daa;
-            text-align: center;
-            margin-bottom: 10px;
-          }
+      .button-container {
+        width: 80%;
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        @include marginCenter;
 
-          p {
-            width: 230px;
-            font-size: 12px;
-
-            img {
-              float: right;
-              padding: 2px;
-            }
-          }
-
-          a {
-            font-size: 12px;
-            color: #566cff;
-          }
+        a {
+          color: white;
+          font-size: 13px;
+          @include buttonStyle;
+          background-color: $primary-color;
         }
       }
     }
@@ -622,7 +668,11 @@ nav {
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 
             &:focus {
-              outline: none;
+              @include bounceAnimation;
+            }
+
+            &:hover {
+              @include bounceAnimation;
             }
           }
         }
@@ -846,7 +896,6 @@ footer {
       h2 {
         width: 100%;
         font-size: 1em;
-        padding-left: 10px;
       }
 
       #tech-icon-container {
@@ -863,74 +912,60 @@ footer {
   }
 
   #services {
-    z-index: 10;
     width: 100%;
-    position: relative;
-    background-color: white;
+    height: 100%;
+    padding-bottom: 20px;
+    @include marginCenter;
 
-    #services-container {
+    h2 {
       width: 100%;
+      font-size: 20px;
+      @include marginCenter;
+      padding: $padding + 10px 0;
+      max-width: $max-width-desktop;
+    }
+
+    .service-container {
+      width: 100%;
+      display: flex;
+      @include boxShadow;
+      margin-bottom: 45px;
+      flex-direction: row;
+      @include marginCenter;
       max-width: $max-width-desktop;
 
-      h2 {
-        width: 100%;
-        font-size: 1em;
-        padding-left: 10px;
+      &:hover {
+        @include serviceAnimation;
       }
 
-      ul {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-
-        li {
-          margin: 0;
-          padding: 0;
-          width: 30%;
-          margin: 10% 1%;
-
-          .icon-container {
-            display: none;
-          }
-
-          .service-container {
-            margin: 0;
-            padding: 0;
-            width: auto;
-            height: 100%;
-            display: flex;
-            position: relative;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
-
-            h3 {
-              top: 0;
-              width: 100%;
-              font-size: 1.5em;
-              margin-top: -80px;
-              padding: 5px 20px;
-              position: absolute;
-            }
-
-            p {
-              display: flex;
-              padding: 0 10px;
-              text-align: center;
-              align-items: center;
-              flex-direction: column;
-
-              img {
-                width: 100%;
-              }
-            }
-            a {
-              margin-bottom: 10px;
-            }
+      .image-container {
+        width: 50%;
+        @include reset;
+        padding: $padding + 10px;
+        background-color: white;
+      }
+      .p-container {
+        width: auto;
+        @include reset;
+        box-shadow: none;
+        padding: $padding + 10px 0;
+        h3 {
+          font-size: 30px;
+        }
+        p {
+          font-size: 20px;
+          padding: $padding 0;
+        }
+        .button-container {
+          a {
+            font-size: 20px;
           }
         }
       }
+    }
+    .row-reverse {
+      display: flex;
+      flex-direction: row-reverse;
     }
   }
 
@@ -961,13 +996,13 @@ footer {
         flex-direction: column;
 
         h2 {
-          color: #534daa;
+          color: $primary-color;
         }
 
         ul {
           li {
             p {
-              color: #534daa;
+              color: $primary-color;
               img {
                 filter: brightness(50%);
               }

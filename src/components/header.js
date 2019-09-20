@@ -56,7 +56,7 @@ export default class header extends Component {
           </div>
           <div id="explore-container">
             <p>Explore Below</p>
-            <a className="animated infinite heartBeat" href="#technologies">
+            <a className="animated heartBeat" href="#technologies">
               <img
                 loading="lazy"
                 src={arrowDown}

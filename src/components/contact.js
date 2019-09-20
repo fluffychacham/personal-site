@@ -7,7 +7,63 @@ import email_icon from "../images/email-icon.svg";
 import phone_icon from "../images/phone-icon.svg";
 import sendemail_icon from "../images/sendemail-icon.svg";
 
+const axios = require("axios");
+const node = axios.create({
+  timeout: 1000
+});
 export default class contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      email: "",
+      budget: "",
+      project_timeline: "",
+      message: ""
+    };
+  }
+
+  handleChange = e => {
+    switch (e.target.id) {
+      case "name":
+        this.setState({ name: e.target.value });
+        break;
+      case "email":
+        this.setState({ email: e.target.value });
+        break;
+      case "budget":
+        this.setState({ budget: e.target.value });
+        break;
+      case "project_timeline":
+        this.setState({ project_timeline: e.target.value });
+        break;
+      case "message":
+        this.setState({ message: e.target.value });
+        break;
+      default:
+    }
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    node
+      .post("/mail", {
+        name: this.state.name,
+        emailFrom: this.state.email,
+        budget: this.state.budget,
+        projectTimeline: this.state.project_timeline,
+        message: this.state.message
+      })
+      .then(response => {
+        if (response.status === 200) {
+          console.log(response.data.msg);
+        }
+      })
+      .catch(error => {
+        console.log(error.data.msg);
+      });
+  };
+
   render() {
     return (
       <section id="contact-us" data-aos="fade-in" data-aos-once="true">
@@ -49,19 +105,33 @@ export default class contact extends Component {
           </div>
           <div id="contact-form">
             <div id="contact-form-container">
-              <form action="#">
-                <LabelInput id="name" text="Name"></LabelInput>
-                <LabelInput id="email" text="Email"></LabelInput>
-                <LabelInput id="budget" text="Budget"></LabelInput>
+              <form action="#" onSubmit={this.handleSubmit}>
                 <LabelInput
-                  id="project-timeline"
+                  id="name"
+                  text="Name"
+                  change={this.handleChange}
+                ></LabelInput>
+                <LabelInput
+                  id="email"
+                  text="Email"
+                  change={this.handleChange}
+                ></LabelInput>
+                <LabelInput
+                  id="budget"
+                  text="Budget"
+                  change={this.handleChange}
+                ></LabelInput>
+                <LabelInput
+                  id="project_timeline"
                   text="Project Timeline"
+                  change={this.handleChange}
                 ></LabelInput>
                 <LabelTextarea
                   id="message"
                   text="Message"
                   col="4"
                   rows="5"
+                  change={this.handleChange}
                 ></LabelTextarea>
                 <button type="submit">
                   <img

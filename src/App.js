@@ -3,6 +3,8 @@ import loadable from "@loadable/component";
 import aos from "aos";
 import "../node_modules/aos/dist/aos.css";
 import "./css/style.css";
+require("dotenv").config();
+
 
 const Nav = loadable(() => import("./components/nav"));
 const Header = loadable(() => import("./components/header"));

@@ -33,12 +33,13 @@ export default class LabelTextarea extends Component {
           {this.props.text}
         </label>
         <textarea
-          name={this.props.id}
           id={this.props.id}
+          name={this.props.id}
           col={this.props.col}
           rows={this.props.rows}
           onBlur={this.focusInput}
           onFocus={this.focusInput}
+          onChange={this.props.change}
         ></textarea>
       </div>
     );
