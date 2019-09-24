@@ -171,7 +171,7 @@ export default class contact extends Component {
           project_timeline: this.state.project_timeline.value
         })
         .then(response => {
-          if (response.status === 200) {
+          if (response.status >= 200 || response <= 299) {
             if (response.data.msg) {
               this.setState({
                 valid: true,
@@ -267,54 +267,6 @@ export default class contact extends Component {
             </ul>
           </div>
           <div id="contact-form">
-            {/* <div id="contact-form-container">
-              <form action="#" onSubmit={this.handleSubmit}>
-                <div ref={this.message} className={this.state.css.div}>
-                  {this.state.errorMessage}
-                </div>
-                <LabelInput
-                  id="name"
-                  text="Name*"
-                  change={this.handleChange}
-                  valid={this.state.name.valid}
-                ></LabelInput>
-                <LabelInput
-                  id="email"
-                  text="Email*"
-                  type="email"
-                  change={this.handleChange}
-                  valid={this.state.email.valid}
-                ></LabelInput>
-                <LabelInput
-                  id="budget"
-                  text="Budget"
-                  change={this.handleChange}
-                  valid={this.state.budget.valid}
-                ></LabelInput>
-                <LabelInput
-                  id="project_timeline"
-                  text="Project Timeline"
-                  change={this.handleChange}
-                  valid={this.state.project_timeline.valid}
-                ></LabelInput>
-                <LabelTextarea
-                  id="message"
-                  text="Message"
-                  col="4"
-                  rows="5"
-                  change={this.handleChange}
-                  valid={this.state.message.valid}
-                ></LabelTextarea>
-                <button type="submit">
-                  <img
-                    loading="lazy"
-                    src={sendemail_icon}
-                    className="lazyload"
-                    alt="send email icon"
-                  />
-                </button>
-              </form>
-            </div> */}
             <div id="form-container">
               <this.Message
                 valid={this.state.valid}
@@ -347,37 +299,6 @@ export default class contact extends Component {
               </form>
             </div>
           </div>
-          {/* <div id="success-container">
-            <div id="success-wrapper">
-              <img
-                className="lazyload"
-                loading="lazy"
-                data-src="images/close-white.svg"
-                alt="close"
-              />
-              <img
-                className="lazyload"
-                loading="lazy"
-                data-src="images/successcircle-icon.svg"
-                alt="success icon"
-              />
-              <p>Success!</p>
-              <p>
-                Your email has been successfully sent! Thank you for your time.
-                It usually takes 1 to 2 business days for us to reply to your
-                inquiry.
-              </p>
-              <button>
-                <img
-                  className="lazyload"
-                  loading="lazy"
-                  data-src="images/backarrow-icon.svg"
-                  alt="go back icon"
-                />
-                <p>Go Back</p>
-              </button>
-            </div>
-          </div> */}
         </div>
       </section>
     );
