@@ -33,7 +33,7 @@ app.post("/send", cors(), (req, res, next) => {
   let siteName = site;
   let name = req.body.name;
   let budget = req.body.budget;
-  let projectTimeline = req.body.projectTimeline;
+  let projectTimeline = req.body.project_timeline;
   let message = req.body.message;
   let subject = emailSubject;
 
@@ -48,10 +48,14 @@ app.post("/send", cors(), (req, res, next) => {
   console.log(`Message: ${message}`);
   console.log("----------------------------------");
 
-  if (message) {
-    res.json({ msg: "Successful!" });
+  if (emailFrom && name) {
+    setTimeout(() => {
+      res.json({ msg: "Email Sent!!" });
+    }, 1000);
   } else {
-    res.json({ msg: "Something went wrong!" });
+    setTimeout(() => {
+      res.json({ msg: "Something went wrong!" });
+    }, 1000);
   }
 
   // sg.post("/send", {

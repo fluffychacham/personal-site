@@ -3,7 +3,11 @@
 $padding: 10px;
 $width-mobile: 300px;
 $text-color: #707070;
+$error-color: #ff2e2e;
+$border-color: #bdbdbd;
+$success-color: #9ccc65;
 $primary-color: #534daa;
+$secondary-color: white;
 $min-width-desktop: 400px;
 $max-width-desktop: 1000px;
 
@@ -12,7 +16,7 @@ $max-width-desktop: 1000px;
   padding: 0;
 }
 
-@mixin marginCenter {
+@mixin margin-center() {
   margin-left: auto;
   margin-right: auto;
 }
@@ -21,23 +25,102 @@ $max-width-desktop: 1000px;
   padding: $padding - 5px 20px;
 }
 
-@mixin boxShadow {
+@mixin box-shadow() {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+@mixin message($color) {
+  left: 0%;
+  right: 0%;
+  width: 245px;
+  height: 20px;
+  display: flex;
+  margin-top: -10px;
+  border-radius: 3px;
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  @include margin-center();
+  background-color: $color;
+  p {
+    font-size: 12px;
+    color: $secondary-color;
+    background-color: transparent;
+  }
 }
 
 // Animation Section ---------------------------------------------
 
-@keyframes minifyLabel {
+@keyframes scaleIn {
+  from {
+    transform: scaleY(0);
+  }
   to {
-    font-size: 10px;
-    color: #566cff;
+    transform: scaleY(1);
   }
 }
 
-@keyframes focusContactForm {
+@keyframes shake {
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes focus-label {
+  to {
+    font-size: 12px;
+    color: $primary-color;
+  }
+}
+
+@keyframes focus-input {
   to {
     transform: scale(1.01);
-    border-bottom: 1px solid #566cff;
+    border-bottom: 1px solid $primary-color;
+  }
+}
+
+@keyframes validLabel {
+  to {
+    font-size: 10px;
+    color: $success-color;
+  }
+}
+
+@keyframes validInput {
+  to {
+    border-bottom: 1px solid $success-color;
+  }
+}
+
+@keyframes invalidLabel {
+  to {
+    font-size: 10px;
+    color: $error-color;
+  }
+}
+
+@keyframes invalidInput {
+  to {
+    border-bottom: 1px solid $error-color;
   }
 }
 
@@ -187,46 +270,56 @@ $max-width-desktop: 1000px;
   animation-timing-function: ease-in-out;
 }
 
-@mixin hoverAnimation {
-  animation-duration: 0.5s;
-  animation-name: hoverMenuItem;
+@mixin animate($name, $duration) {
+  animation-name: $name;
+  animation-duration: $duration;
   animation-fill-mode: forwards;
-  animation-timing-function: ease-in;
-}
-
-@mixin bounceAnimation {
-  animation-name: bounce;
-  animation-duration: 1.3s;
-  transform-origin: center bottom;
-  animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
 
-@mixin focusContactForm {
-  animation-duration: 0.3s;
-  transform-origin: center bottom;
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
-  animation-name: focusContactForm;
+@mixin hoverAnimation {
+  @include animate(hoverMenuItem, 1.5s);
+}
+
+@mixin bounceAnimation {
+  @include animate(bounce, 1.3s);
+  animation-iteration-count: infinite;
 }
 
 .bounce {
   @include bounceAnimation;
 }
 
-.focused {
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
-  animation-direction: normal;
-  animation-name: minifyLabel;
-  animation-timing-function: ease;
+@mixin focus-input {
+  @include animate(focus-input, 0.3s);
 }
 
-@mixin serviceAnimation {
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
-  animation-name: makeBigger;
-  animation-timing-function: ease-in-out;
+.focus-input {
+  @include focus-input();
+}
+
+@mixin focus-label {
+  @include animate(focus-label, 0.3s);
+}
+
+.focus-label {
+  @include focus-label();
+}
+
+@mixin service-animation() {
+  @include animate(makeBigger, 0.3s);
+}
+
+@mixin shake {
+  @include animate(shake, 1s);
+}
+
+.shake {
+  @include shake();
+}
+
+@mixin scaleIn {
+  @include animate(scaleIn, 0.5s);
 }
 
 // Animation Section End -----------------------------------------
@@ -259,6 +352,16 @@ body {
   @include reset;
   overflow-x: hidden;
   font-family: Montserrat;
+}
+
+.form-input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid $border-color;
+}
+
+.form-label {
+  color: $text-color;
 }
 
 nav {
@@ -321,7 +424,7 @@ nav {
           font-size: 20px;
           font-weight: 500;
           padding: 10px 20px;
-          @include boxShadow;
+          @include box-shadow();
           border-radius: 10px;
           background-color: #ffeb3b;
         }
@@ -476,7 +579,7 @@ nav {
   h2 {
     font-size: 15px;
     width: $width-mobile;
-    @include marginCenter;
+    @include margin-center();
     color: $primary-color;
     padding: $padding + 4 0;
   }
@@ -485,7 +588,7 @@ nav {
       width: 100%;
       display: flex;
       align-items: center;
-      @include marginCenter;
+      @include margin-center();
       flex-direction: column;
       justify-content: center;
       padding: $padding + 20 0;
@@ -500,10 +603,10 @@ nav {
       display: flex;
       text-align: left;
       margin-top: -20px;
-      @include boxShadow;
+      @include box-shadow();
       margin-bottom: 30px;
       width: $width-mobile;
-      @include marginCenter;
+      @include margin-center();
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
@@ -516,7 +619,7 @@ nav {
         font-weight: normal;
         padding: $padding 0;
         color: $primary-color;
-        @include marginCenter;
+        @include margin-center();
 
         .bold-text {
           display: inline;
@@ -528,7 +631,7 @@ nav {
         width: 80%;
         font-size: 13px;
         color: $text-color;
-        @include marginCenter;
+        @include margin-center();
       }
 
       .button-container {
@@ -536,7 +639,7 @@ nav {
         display: block;
         margin-top: 20px;
         margin-bottom: 20px;
-        @include marginCenter;
+        @include margin-center();
 
         a {
           color: white;
@@ -551,17 +654,21 @@ nav {
 
 #contact-us {
   width: 100%;
+  position: relative;
   background-color: white;
 
   #contact-us-container {
     width: 100%;
     display: flex;
+    position: relative;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     background-color: #566cff;
 
     #contact-us-left {
+      z-index: 10;
+      position: relative;
       width: $width-mobile;
 
       h2 {
@@ -604,75 +711,120 @@ nav {
     }
 
     #contact-form {
+      z-index: 10;
       width: 100%;
       display: flex;
-      margin-top: 50px;
+      margin-top: 40px;
+      position: relative;
       align-items: center;
       flex-direction: column;
       background-color: white;
       justify-content: flex-start;
 
-      #contact-form-container {
-        display: block;
-        margin-top: -40px;
-        margin-bottom: 15px;
+      #form-container {
+        z-index: 10;
+        margin-top: -30px;
+        position: relative;
+        margin-bottom: 30px;
         width: $width-mobile;
+        @include box-shadow();
+        @include margin-center();
         background-color: white;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+
+        .error-message {
+          @include message($error-color);
+          @include shake();
+        }
+
+        .success-message {
+          @include message($success-color);
+          @include scaleIn();
+        }
+
+        .hide {
+          display: none;
+        }
 
         form {
-          margin: 20px;
-          transition: all;
-          transition-duration: 1s;
+          display: flex;
+          padding-top: 0;
+          margin-top: -20px;
+          flex-direction: column;
+          padding: $padding + 10px;
+
+          // label:first-of-type {
+          //   margin-top: 0;
+          // }
 
           label {
-            display: block;
-            font-size: 12px;
-            color: #9e9e9e;
-            margin-bottom: 5px;
+            height: 20px;
+            margin-top: $padding + 10px;
+          }
+
+          .label-text {
+            display: flex;
+            font-size: 13px;
+            color: $text-color;
+            align-items: center;
+            flex-direction: row;
+          }
+
+          .success-label {
+            color: $success-color;
+          }
+
+          .error-label {
+            color: $error-color;
+          }
+
+          .success-input {
+            border-bottom: 1px solid $success-color;
+          }
+
+          .error-input {
+            border-bottom: 1px solid $error-color;
+          }
+
+          .label-icon {
+            display: inline;
+            margin-left: 15px;
           }
 
           input {
-            width: 100%;
             border: none;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #bdbdbd;
-
+            outline: none;
+            height: 20px;
+            margin-top: $padding - 5px;
+            border-bottom: 1px solid $border-color;
             &:focus {
-              outline: none;
-              @include focusContactForm;
+              @include focus-input();
             }
           }
 
           textarea {
-            width: 100%;
             border: none;
-
             &:focus {
-              outline: 1px solid #566cff;
+              border-block-color: $primary-color;
             }
           }
 
-          button {
+          #submit {
             width: 45px;
             height: 45px;
             border: none;
             display: flex;
-            margin-top: 10px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-top: 20px;
             border-radius: 50%;
-            margin-bottom: 10px;
+            align-items: center;
+            @include box-shadow();
             justify-content: center;
-            background-color: #566cff;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-
-            &:focus {
-              @include bounceAnimation;
-            }
-
+            @include margin-center();
+            background-color: $primary-color;
             &:hover {
-              @include bounceAnimation;
+              cursor: pointer;
+            }
+            &:focus {
+              outline: none;
             }
           }
         }
@@ -915,12 +1067,12 @@ footer {
     width: 100%;
     height: 100%;
     padding-bottom: 20px;
-    @include marginCenter;
+    @include margin-center();
 
     h2 {
       width: 100%;
       font-size: 20px;
-      @include marginCenter;
+      @include margin-center();
       padding: $padding + 10px 0;
       max-width: $max-width-desktop;
     }
@@ -928,14 +1080,14 @@ footer {
     .service-container {
       width: 100%;
       display: flex;
-      @include boxShadow;
+      @include box-shadow();
       margin-bottom: 45px;
       flex-direction: row;
-      @include marginCenter;
+      @include margin-center();
       max-width: $max-width-desktop;
 
       &:hover {
-        @include serviceAnimation;
+        @include service-animation();
       }
 
       .image-container {
@@ -1012,16 +1164,6 @@ footer {
       }
       #contact-form {
         width: auto;
-
-        #contact-form-container {
-          form {
-            button {
-              &:hover {
-                @include bounceAnimation;
-              }
-            }
-          }
-        }
       }
     }
   }

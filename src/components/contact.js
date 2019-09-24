@@ -1,67 +1,230 @@
 import React, { Component } from "react";
-import LabelInput from "./label-input";
-import LabelTextarea from "./label-textarea";
+import DotLoader from "react-spinners/DotLoader";
+import LabelInputElement from "./labelInputElement";
 
-import contactus from "../images/contactus-image.svg";
 import email_icon from "../images/email-icon.svg";
 import phone_icon from "../images/phone-icon.svg";
-import sendemail_icon from "../images/sendemail-icon.svg";
+import contactus from "../images/contactus-image.svg";
+import submit_icon from "../images/submit-icon.svg";
 
 const axios = require("axios");
 const node = axios.create({
-  timeout: 1000
+  timeout: 5000
 });
 export default class contact extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      email: "",
-      budget: "",
-      project_timeline: "",
-      message: ""
-    };
+    this.name = React.createRef();
+    this.email = React.createRef();
+    this.budget = React.createRef();
+    this.message = React.createRef();
+    this.project_timeline = React.createRef();
   }
+  state = {
+    valid: false,
+    loading: false,
+    error: {
+      show: false,
+      value: "Something went wrong!"
+    },
+    name: {
+      valid: false,
+      value: ""
+    },
+    email: {
+      valid: false,
+      value: ""
+    },
+    budget: {
+      valid: false,
+      value: "Didn't say"
+    },
+    project_timeline: {
+      valid: false,
+      value: "Didn't say"
+    },
+    message: {
+      valid: false,
+      value: "Didn't say"
+    }
+  };
 
-  handleChange = e => {
-    switch (e.target.id) {
+  getRefs = element => {
+    switch (element.props.id) {
       case "name":
-        this.setState({ name: e.target.value });
+        this.name = element;
         break;
       case "email":
-        this.setState({ email: e.target.value });
+        this.email = element;
         break;
       case "budget":
-        this.setState({ budget: e.target.value });
+        this.budget = element;
         break;
       case "project_timeline":
-        this.setState({ project_timeline: e.target.value });
+        this.project_timeline = element;
         break;
       case "message":
-        this.setState({ message: e.target.value });
+        this.message = element;
         break;
       default:
     }
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    node
-      .post("/send", {
-        name: this.state.name,
-        emailFrom: this.state.email,
-        budget: this.state.budget,
-        projectTimeline: this.state.project_timeline,
-        message: this.state.message
-      })
-      .then(response => {
-        if (response.status === 200) {
-          console.log(response.data.msg);
-        }
-      })
-      .catch(error => {
-        console.log(error.data.msg);
+  SubmitButton = () => {
+    if (!this.state.loading) {
+      return <img src={submit_icon} alt="submit" />;
+    } else {
+      return (
+        <DotLoader size={30} color={"white"} loading={true} sizeUnit={"px"} />
+      );
+    }
+  };
+
+  Message = props => {
+    if (props.show && !this.state.loading) {
+      if (props.valid) {
+        return (
+          <div className="success-message">
+            <p>{props.msg}</p>
+          </div>
+        );
+      } else {
+        return (
+          <div className="error-message">
+            <p>{props.msg}</p>
+          </div>
+        );
+      }
+    } else {
+      return null;
+    }
+  };
+
+  LabelInput = props => {
+    return (
+      <LabelInputElement
+        {...props}
+        ref={this.getRefs}
+        change={this.handleChange}
+      />
+    );
+  };
+
+  handleChange = (e, valid) => {
+    switch (e.target.id) {
+      case "name":
+        this.setState({
+          name: {
+            valid: valid,
+            value: e.target.value
+          }
+        });
+        break;
+      case "email":
+        this.setState({
+          email: {
+            valid: valid,
+            value: e.target.value
+          }
+        });
+        break;
+      case "budget":
+        this.setState({
+          budget: {
+            valid: valid,
+            value: e.target.value
+          }
+        });
+        break;
+      case "project_timeline":
+        this.setState({
+          project_timeline: {
+            valid: valid,
+            value: e.target.value
+          }
+        });
+        break;
+      case "message":
+        this.setState({
+          message: {
+            valid: valid,
+            value: e.target.value
+          }
+        });
+        break;
+      default:
+    }
+  };
+
+  handleSubmit = submit => {
+    submit.preventDefault();
+    if (this.state.name.valid && this.state.email.valid) {
+      this.setState({
+        loading: true
       });
+      node
+        .post("/send", {
+          name: this.state.name.value,
+          budget: this.state.budget.value,
+          emailFrom: this.state.email.value,
+          message: this.state.message.value,
+          project_timeline: this.state.project_timeline.value
+        })
+        .then(response => {
+          if (response.status === 200) {
+            if (response.data.msg) {
+              this.setState({
+                valid: true,
+                loading: false,
+                error: {
+                  show: true,
+                  value: response.data.msg
+                }
+              });
+            }
+          }
+        })
+        .catch(error => {
+          if (error.data) {
+            this.setState({
+              valid: false,
+              loading: false,
+              error: {
+                show: true,
+                value: error.data.msg
+              }
+            });
+          } else {
+            this.setState({
+              valid: false,
+              loading: false,
+              error: {
+                show: true,
+                value: "Something went wrong"
+              }
+            });
+          }
+        })
+        .finally(() => {
+          this.setState({
+            loading: false
+          });
+        });
+    } else {
+      this.setState({
+        valid: false,
+        error: {
+          show: true,
+          value: "* Please fill in the required fields"
+        }
+      });
+    }
+    this.name.setState({
+      showValidity: true
+    });
+    this.email.setState({
+      showValidity: true
+    });
   };
 
   render() {
@@ -104,27 +267,35 @@ export default class contact extends Component {
             </ul>
           </div>
           <div id="contact-form">
-            <div id="contact-form-container">
+            {/* <div id="contact-form-container">
               <form action="#" onSubmit={this.handleSubmit}>
+                <div ref={this.message} className={this.state.css.div}>
+                  {this.state.errorMessage}
+                </div>
                 <LabelInput
                   id="name"
-                  text="Name"
+                  text="Name*"
                   change={this.handleChange}
+                  valid={this.state.name.valid}
                 ></LabelInput>
                 <LabelInput
                   id="email"
-                  text="Email"
+                  text="Email*"
+                  type="email"
                   change={this.handleChange}
+                  valid={this.state.email.valid}
                 ></LabelInput>
                 <LabelInput
                   id="budget"
                   text="Budget"
                   change={this.handleChange}
+                  valid={this.state.budget.valid}
                 ></LabelInput>
                 <LabelInput
                   id="project_timeline"
                   text="Project Timeline"
                   change={this.handleChange}
+                  valid={this.state.project_timeline.valid}
                 ></LabelInput>
                 <LabelTextarea
                   id="message"
@@ -132,6 +303,7 @@ export default class contact extends Component {
                   col="4"
                   rows="5"
                   change={this.handleChange}
+                  valid={this.state.message.valid}
                 ></LabelTextarea>
                 <button type="submit">
                   <img
@@ -142,9 +314,40 @@ export default class contact extends Component {
                   />
                 </button>
               </form>
+            </div> */}
+            <div id="form-container">
+              <this.Message
+                valid={this.state.valid}
+                show={this.state.error.show}
+                msg={this.state.error.value}
+              />
+              <form action="#" onSubmit={this.handleSubmit}>
+                <this.LabelInput
+                  id="name"
+                  type="text"
+                  text="Name*"
+                  important={true}
+                />
+                <this.LabelInput
+                  id="email"
+                  type="email"
+                  text="Email*"
+                  important={true}
+                />
+                <this.LabelInput id="budget" type="text" text="Budget" />
+                <this.LabelInput
+                  id="project_timeline"
+                  type="text"
+                  text="Project Timeline"
+                />
+                <this.LabelInput id="message" text="Message" textarea={true} />
+                <button id="submit" type="submit">
+                  <this.SubmitButton />
+                </button>
+              </form>
             </div>
           </div>
-          <div id="success-container">
+          {/* <div id="success-container">
             <div id="success-wrapper">
               <img
                 className="lazyload"
@@ -174,7 +377,7 @@ export default class contact extends Component {
                 <p>Go Back</p>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     );
