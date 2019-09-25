@@ -133,10 +133,11 @@ app.post("/send", cors(), (req, res, next) => {
   }
 });
 
-app.use(function(req, res, next) {
-  res.status(404).sendFile(__dirname, "404", "index.html");
-});
-
 app.listen(process.env.PORT || port, function() {
   console.log(`CORS-enabled server listening on port ${port}`);
+});
+
+app.use((req, res, next) => {
+  res.status(404);
+  res.sendFile(path.join(__dirname, "404", "index.html"));
 });

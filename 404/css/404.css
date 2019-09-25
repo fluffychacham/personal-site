@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 h1,
+h2,
 p,
 a,
 body {
@@ -28,8 +29,12 @@ body {
   font-size: 4em;
   margin-top: 60px;
   font-weight: 700;
-  margin-bottom: 50px;
   color: #1a1a1a;
+}
+
+.container h2 {
+  font-size: 1.3em;
+  margin-bottom: 50px;
 }
 
 .container .back-button {
@@ -58,4 +63,4 @@ footer p {
   text-align: center;
   color: #1a1a1a;
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=404.css.map */
