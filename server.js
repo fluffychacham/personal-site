@@ -21,11 +21,17 @@ const emailSubject = "Business inquiry";
 
 const app = express();
 app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "blog")));
+app.use(express.static(path.join(__dirname, "404")));
 app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.get("/blog", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "blog", "index.html"));
 });
 
 app.post("/send", cors(), (req, res, next) => {
@@ -107,7 +113,7 @@ app.post("/send", cors(), (req, res, next) => {
       })
       .catch(error => {
         res.statusCode = 400;
-        res.json({ msg: "Something went wrong!" });
+        res.json({ msg: "Email was not sent!" });
         return false;
       });
   } else {
@@ -125,6 +131,10 @@ app.post("/send", cors(), (req, res, next) => {
       res.json({ msg: "Something went wrong" });
     }
   }
+});
+
+app.use(function(req, res, next) {
+  res.status(404).sendFile(__dirname, "404", "index.html");
 });
 
 app.listen(process.env.PORT || port, function() {

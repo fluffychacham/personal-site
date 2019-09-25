@@ -840,12 +840,13 @@ nav {
 footer {
   width: 100%;
   display: flex;
+  padding-top: 25px;
   align-items: center;
-  margin-bottom: 25px;
+  padding-bottom: 25px;
   justify-content: center;
 
   #footer-container {
-    width: 80px;
+    width: 200px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -853,6 +854,21 @@ footer {
 
     #social-media-links {
       display: flex;
+      @include reset;
+      @include margin-center();
+
+      img {
+        opacity: 0.8;
+        &:first-of-type {
+          margin-right: 10px;
+        }
+        &:last-of-type {
+          margin-left: 10px;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
 
     #copyright {

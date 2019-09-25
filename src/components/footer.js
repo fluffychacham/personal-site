@@ -11,24 +11,30 @@ export default class footer extends Component {
       <footer>
         <div id="footer-container">
           <div id="social-media-links">
-            <img
-              src={fb_icon}
-              loading="lazy"
-              alt="facebook link"
-              className="lazyload"
-            />
-            <img
-              loading="lazy"
-              alt="youtube link"
-              src={youtube_icon}
-              className="lazyload"
-            />
-            <img
-              loading="lazy"
-              src={instagram_icon}
-              alt="instagram link"
-              className="lazyload"
-            />
+            <a href="https://www.facebook.com/jidoweb">
+              <img
+                src={fb_icon}
+                loading="lazy"
+                alt="facebook link"
+                className="lazyload"
+              />
+            </a>
+            <a href="https://www.youtube.com/channel/UC9TeNJ_cPB2Ed0JWLPHF0qw?view_as=subscriber">
+              <img
+                loading="lazy"
+                alt="youtube link"
+                src={youtube_icon}
+                className="lazyload"
+              />
+            </a>
+            <a href="https://www.instagram.com/kit.tejido/">
+              <img
+                loading="lazy"
+                src={instagram_icon}
+                alt="instagram link"
+                className="lazyload"
+              />
+            </a>
           </div>
           <div id="copyright">
             <img

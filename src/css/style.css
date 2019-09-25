@@ -1218,17 +1218,18 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  padding-top: 25px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 25px;
+  padding-bottom: 25px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
 }
 
 footer #footer-container {
-  width: 80px;
+  width: 200px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1248,6 +1249,26 @@ footer #footer-container #social-media-links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer #footer-container #social-media-links img {
+  opacity: 0.8;
+}
+
+footer #footer-container #social-media-links img:first-of-type {
+  margin-right: 10px;
+}
+
+footer #footer-container #social-media-links img:last-of-type {
+  margin-left: 10px;
+}
+
+footer #footer-container #social-media-links img:hover {
+  opacity: 1;
 }
 
 footer #footer-container #copyright {

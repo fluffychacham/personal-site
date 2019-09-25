@@ -24,10 +24,9 @@ export default class services extends Component {
               <div className="bold-text">Development</div>
             </h3>
             <p>
-              The goal isn't to build a website. The goal is to build your
-              business. 86% of consumers rely on the internet to find a local
-              business. Start making your whole sales process smoother and more
-              effective with Jido.
+              We utilize the flexibility of modern web technologies to develop a
+              product that's in line with your vision while building an
+              interface that is easy to navigate.
             </p>
             <div className="button-container">
               <a href="#contact-us">Learn More</a>
@@ -49,9 +48,10 @@ export default class services extends Component {
               <div className="bold-text">Design</div>
             </h3>
             <p>
-              We utilize the flexibility of modern web technologies to develop a
-              product that's in line with your vision while building an
-              interface that is easy to navigate.
+              The goal isn't to build a website. The goal is to build your
+              business. 86% of consumers rely on the internet to find a local
+              business. Start making your whole sales process smoother and more
+              effective with Jido.
             </p>
             <div className="button-container">
               <a href="#contact-us">Learn More</a>
@@ -69,14 +69,14 @@ export default class services extends Component {
           </div>
           <div className="p-container">
             <h3>
-              Digital
-              <div className="bold-text">Marketing</div>
+              Business
+              <div className="bold-text">Intelligence</div>
             </h3>
             <p>
               From analytics to animations, we can implement personalized
               digital marketing strategies to give your business that
               competitive advantage and ensure its survival. Let our tools help
-              you make smarter decisions.
+              you make smarter data driven decisions.
             </p>
             <div className="button-container">
               <a href="#contact-us">Learn More</a>
