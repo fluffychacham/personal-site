@@ -1,14 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
 $padding: 10px;
-$width-mobile: 300px;
+$width-mobile: 80%;
+$width-desktop: 80%;
 $text-color: #707070;
 $error-color: #ff2e2e;
 $border-color: #bdbdbd;
 $success-color: #9ccc65;
 $primary-color: #534daa;
 $secondary-color: white;
-$min-width-desktop: 400px;
+$min-width-desktop: 720px;
 $max-width-desktop: 1000px;
 
 @mixin reset {
@@ -32,10 +33,11 @@ $max-width-desktop: 1000px;
 @mixin message($color) {
   left: 0%;
   right: 0%;
-  width: 245px;
-  height: 20px;
+  width: 90%;
+  height: auto;
   display: flex;
-  margin-top: -10px;
+  margin-top: -33px;
+  padding: 10px 5px;
   border-radius: 3px;
   position: absolute;
   text-align: center;
@@ -45,9 +47,25 @@ $max-width-desktop: 1000px;
   @include margin-center();
   background-color: $color;
   p {
-    font-size: 12px;
+    font-size: 13px;
     color: $secondary-color;
     background-color: transparent;
+  }
+  @media screen and (min-width: $min-width-desktop + 350px) {
+    height: auto;
+    margin-top: -40px;
+    p {
+      padding: 5px 10px;
+      font-size: 1em;
+    }
+  }
+  @media screen and (min-width: $min-width-desktop + 500px) {
+    height: auto;
+    margin-top: -45px;
+    p {
+      padding: 5px 10px;
+      font-size: 1.3em;
+    }
   }
 }
 
@@ -526,14 +544,18 @@ nav {
     }
 
     #explore-container {
+      bottom: 0;
+      left: 0%;
+      right: 0%;
       width: 200px;
       display: flex;
-      margin-top: 100px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-top: 20%;
+      position: absolute;
+      margin-bottom: 20px;
       align-items: center;
       flex-direction: column;
       justify-content: center;
+      @include margin-center();
 
       p {
         color: white;
@@ -657,6 +679,15 @@ nav {
   position: relative;
   background-color: white;
 
+  h2 {
+    padding: 10px 0;
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-top: 23px;
+    text-align: center;
+    color: $primary-color;
+  }
+
   #contact-us-container {
     width: 100%;
     display: flex;
@@ -664,20 +695,12 @@ nav {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background-color: #566cff;
+    background-color: $primary-color;
 
     #contact-us-left {
       z-index: 10;
       position: relative;
       width: $width-mobile;
-
-      h2 {
-        color: white;
-        font-size: 30px;
-        font-weight: 700;
-        margin-top: 23px;
-        text-align: center;
-      }
 
       #contact-us-image {
         width: 100%;
@@ -686,8 +709,7 @@ nav {
 
       ul {
         display: flex;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 0;
         flex-direction: row;
         justify-content: space-between;
 
@@ -714,7 +736,7 @@ nav {
       z-index: 10;
       width: 100%;
       display: flex;
-      margin-top: 40px;
+      margin-top: 80px;
       position: relative;
       align-items: center;
       flex-direction: column;
@@ -1000,13 +1022,12 @@ footer {
   }
 
   #hero {
-    bottom: 0;
-    height: 100vh;
-    position: fixed;
+    height: auto;
+    position: relative;
+    padding-bottom: 40px;
 
     #hero-container {
-      width: 100%;
-      margin-top: 5%;
+      width: $width-desktop;
       max-width: $max-width-desktop;
 
       #menu-toggle {
@@ -1031,19 +1052,22 @@ footer {
       }
 
       #hero-image {
-        width: 100%;
+        width: 50;
       }
 
       #header-wrapper {
         h3 {
-          font-size: 3em;
-          line-height: 200%;
+          font-size: 200%;
+          line-height: 150%;
         }
 
         p {
           width: 70%;
-          font-size: 1.5em;
+          font-size: 120%;
         }
+      }
+      #explore-container {
+        position: relative;
       }
     }
   }
@@ -1051,13 +1075,12 @@ footer {
   #technologies {
     z-index: 10;
     height: auto;
-    margin-top: 100vh;
     position: relative;
 
     #tech-container {
-      width: 100%;
       height: auto;
       display: flex;
+      width: $width-desktop;
       flex-direction: column;
       justify-content: center;
       max-width: $max-width-desktop;
@@ -1087,19 +1110,19 @@ footer {
     @include margin-center();
 
     h2 {
-      width: 100%;
       font-size: 20px;
+      width: $width-desktop;
       @include margin-center();
       padding: $padding + 10px 0;
       max-width: $max-width-desktop;
     }
 
     .service-container {
-      width: 100%;
       display: flex;
-      @include box-shadow();
       margin-bottom: 45px;
       flex-direction: row;
+      width: $width-desktop;
+      @include box-shadow();
       @include margin-center();
       max-width: $max-width-desktop;
 
@@ -1108,13 +1131,13 @@ footer {
       }
 
       .image-container {
-        width: 50%;
+        width: 40%;
         @include reset;
         padding: $padding + 10px;
         background-color: white;
       }
       .p-container {
-        width: auto;
+        width: 60%;
         @include reset;
         box-shadow: none;
         padding: $padding + 10px 0;
@@ -1129,6 +1152,10 @@ footer {
           a {
             font-size: 20px;
           }
+
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }
@@ -1141,46 +1168,72 @@ footer {
   #contact-us {
     z-index: 10;
     width: 100%;
+    padding-top: 40px;
     position: relative;
-    background-color: white;
+    background-color: $primary-color;
+
+    h2 {
+      font-size: 2em;
+      text-align: center;
+      position: relative;
+      width: $width-desktop;
+      color: $secondary-color;
+      @include margin-center();
+    }
 
     #contact-us-container {
-      width: 100%;
       display: flex;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 40px 0;
       position: relative;
-      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      background-color: white;
-      max-width: $max-width-desktop;
+      flex-direction: row;
+      width: $width-desktop;
+      @include margin-center();
+      justify-content: space-between;
+      background-color: $primary-color;
+      max-width: $max-width-desktop + $max-width-desktop/2;
 
       #contact-us-left {
         width: 50%;
         z-index: 11;
         display: flex;
-        padding: 0 50px;
         position: relative;
         flex-direction: column;
 
-        h2 {
-          color: $primary-color;
+        #contact-us-image {
+          width: 100%;
+          @include margin-center();
         }
 
         ul {
+          width: 100%;
+          @include margin-center();
           li {
-            p {
-              color: $primary-color;
-              img {
-                filter: brightness(50%);
-              }
-            }
+            margin-bottom: 20px;
+            // p {
+            //   color: $primary-color;
+            //   img {
+            //     filter: brightness(50%);
+            //   }
+            // }
           }
         }
       }
       #contact-form {
-        width: auto;
+        width: 50%;
+        @include reset();
+        margin-left: 20px;
+        background-color: $secondary-color;
+        #form-container {
+          @include reset();
+          width: 90%;
+          box-shadow: none;
+          padding-bottom: 20px;
+          form {
+            width: 100%;
+            @include reset();
+          }
+        }
       }
     }
   }

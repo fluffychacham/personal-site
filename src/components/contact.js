@@ -230,9 +230,9 @@ export default class contact extends Component {
   render() {
     return (
       <section id="contact-us" data-aos="fade-in" data-aos-once="true">
+        <h2>Contact Us!</h2>
         <div id="contact-us-container">
           <div id="contact-us-left">
-            <h2>Contact Us!</h2>
             <img
               loading="lazy"
               src={contactus}
