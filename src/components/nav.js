@@ -55,11 +55,6 @@ export default class nav extends Component {
               </a>
             </li>
           </ul>
-          <p id="privacy">
-            When using this website, you agree to the
-            <a href="#privacy">privacy policy</a> and
-            <a href="#terms">terms of service</a>.
-          </p>
         </div>
       </nav>
     );
