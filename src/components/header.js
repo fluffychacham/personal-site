@@ -49,7 +49,7 @@ export default class header extends Component {
             className="lazyload"
           />
           <div id="header-wrapper">
-            <h3>We make your ideas a reality</h3>
+            <h3>We build digital products</h3>
             <p>
               We are a web development startup focused on your business' success
             </p>
